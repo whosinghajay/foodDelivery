@@ -30,8 +30,8 @@ export default function RootLayoutNav() {
               headerShadowVisible: false,
               headerStyle: {
                 backgroundColor: Colors.lightGrey,
-               },
-              // headerLeft: () => {
+              },
+              // headerLeft: () => (
               //   <TouchableOpacity
               //     onPress={() => {
               //       nav.goBack();
@@ -42,8 +42,28 @@ export default function RootLayoutNav() {
               //       size={20}
               //       color={Colors.primary}
               //     />
-              //   </TouchableOpacity>;
-              // },
+              //   </TouchableOpacity>
+              // ),
+            }}
+          />
+          <Stack.Screen
+            name="(modal)/location-search"
+            options={{
+              presentation: "fullScreenModal",
+              headerTitle: "Select Location",
+              // headerLeft: () => (
+              //   <TouchableOpacity
+              //     onPress={() => {
+              //       nav.goBack();
+              //     }}
+              //   >
+              //     <Ionicons
+              //       name="close-outline"
+              //       size={20}
+              //       color={Colors.primary}
+              //     />
+              //   </TouchableOpacity>
+              // ),
             }}
           />
         </Stack>
