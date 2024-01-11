@@ -1,6 +1,7 @@
 import ParallaxScrollView from "@/Components/ParallaxScrollview";
 import { restaurant } from "@/assets/data/restaurant";
 import Colors from "@/constants/Colors";
+import useBasketStore from "@/store/basketStore";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, useNavigation } from "expo-router";
 import React, { useLayoutEffect, useRef, useState } from "react";
@@ -19,6 +20,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Details = () => {
   const navigation = useNavigation();
@@ -36,6 +38,8 @@ const Details = () => {
     title: item.category,
     data: item.meals,
   }));
+
+  const { items, total } = useBasketStore();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -73,7 +77,7 @@ const Details = () => {
     const selected = itemsRef.current[index];
     setActiveIndex(index);
 
-    selected.measure((x) => {  
+    selected.measure((x) => {
       scrollRef.current?.scrollTo({ x: x - 16, y: 0, animated: true });
     });
   };
@@ -88,7 +92,7 @@ const Details = () => {
   };
 
   const renderItem: ListRenderItem<any> = ({ item, index }) => (
-    <Link href={"/"} asChild>
+    <Link href={{ pathname: "/(modal)/dish", params: { id: item.id } }} asChild>
       <TouchableOpacity style={styles.item}>
         <View style={{ flex: 1 }}>
           <Text style={styles.dish}>{item.name}</Text>
@@ -188,6 +192,20 @@ const Details = () => {
           </ScrollView>
         </View>
       </Animated.View>
+
+      {items > 0 && (
+        <View style={styles.footer}>
+          <SafeAreaView edges={["bottom"]} style={{ backgroundColor: "#fff" }}>
+            <Link href={"/basket"} asChild>
+              <TouchableOpacity style={styles.fullButton}>
+                <Text style={styles.basket}>{items}</Text>
+                <Text style={styles.footerText}>View Basket</Text>
+                <Text style={styles.basketTotal}>Total: ₹{total}</Text>
+              </TouchableOpacity>
+            </Link>
+          </SafeAreaView>
+        </View>
+      )}
     </>
   );
 };
@@ -304,6 +322,45 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
     paddingBottom: 4,
+  },
+  footer: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    left: 0,
+    padding: 10,
+  },
+  footerContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 12,
+  },
+  footerText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  basket: {
+    color: "#fff",
+    backgroundColor: "#19AA86",
+    fontWeight: "bold",
+    padding: 8,
+    borderRadius: 2,
+  },
+  basketTotal: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  fullButton: {
+    backgroundColor: Colors.primary,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "space-between",
+    height: 50,
   },
 });
 

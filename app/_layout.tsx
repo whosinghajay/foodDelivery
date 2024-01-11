@@ -66,6 +66,50 @@ export default function RootLayoutNav() {
               // ),
             }}
           />
+          <Stack.Screen
+            name="(modal)/dish"
+            options={{
+              presentation: "modal",
+              headerTitle: "",
+              headerTransparent: true,
+              // headerLeft: () => (
+              //   <TouchableOpacity
+              //     onPress={() => {
+              //       nav.goBack();
+              //     }}
+              //   >
+              //     <Ionicons
+              //       name="close-outline"
+              //       size={20}
+              //       color={Colors.primary}
+              //     />
+              //   </TouchableOpacity>
+              // ),
+            }}
+          />
+
+           <Stack.Screen
+            name="(modal)/basket"
+            options={{
+              presentation: "modal",
+              headerTitle: "Basket",
+              headerTransparent: true,
+              // headerLeft: () => (
+              //   <TouchableOpacity
+              //     onPress={() => {
+              //       nav.goBack();
+              //     }}
+              //   >
+              //     <Ionicons
+              //       name="close-outline"
+              //       size={20}
+              //       color={Colors.primary}
+              //     />
+              //   </TouchableOpacity>
+              // ),
+            }}
+          />
+          
         </Stack>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
